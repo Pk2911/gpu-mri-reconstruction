@@ -1,55 +1,140 @@
-# gpu-mri-reconstruction
+﻿# GPU-Accelerated Brain MRI Reconstruction
 
-# GPU-Accelerated Brain MRI Reconstruction
+![Status](https://img.shields.io/badge/Status-Research%20Project-success)
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![GPU](https://img.shields.io/badge/Acceleration-NVIDIA%20CUDA-76B900)
 
-This project evaluates GPU-accelerated MRI reconstruction methods using PyTorch and CUDA. It simulates undersampled, noisy k-space data from brain MRI images, then compares four reconstruction approaches:
+GPU-Accelerated Brain MRI Reconstruction is a research project that evaluates how NVIDIA CUDA acceleration can improve reconstruction of undersampled and noisy brain MRI data. The project compares four reconstruction methods and measures both image quality and GPU performance.
 
+This project is an academic MRI simulation. It is not a clinical or diagnostic system and must not be used for patient-care decisions.
 
-The notebook reports reconstruction quality with PSNR and SSIM, GPU memory use, batch time, and throughput, and produces a visual comparison.
+## Key Features
 
-## Repository layout
+- MRI k-space simulation with FFT, undersampling, and additive noise.
+- Four reconstruction methods: ZFR, CG, ISTA, and RLS.
+- GPU acceleration using PyTorch tensors and CUDA.
+- Quality metrics: PSNR and SSIM.
+- Performance metrics: execution time, GPU memory usage, and throughput.
+- Visual comparison of source and reconstructed outputs.
+
+## Tech Stack
+
+- Python
+- PyTorch + CUDA
+- OpenCV
+- NumPy
+- scikit-image
+- Matplotlib
+- Jupyter Notebook
+
+## Project Structure
 
 ```text
-notebooks/gpu_mri_reconstruction.ipynb  Main experiment notebook
-docs/project-report.docx                 Full project report
-docs/execution-notes.docx                Technical execution notes
-docs/execution-of-code.pdf               Execution summary
-requirements.txt                         Python dependencies
+gpu-mri-reconstruction/
+|-- notebooks/
+|   `-- gpu_mri_reconstruction.ipynb
+|-- docs/
+|   |-- project-report.docx
+|   |-- execution-notes.docx
+|   `-- execution-of-code.pdf
+|-- requirements.txt
+|-- .gitignore
+`-- README.md
 ```
 
-## Requirements
+## Local Installation and Setup
 
+1. Clone the repository:
 
-```text
-Dataset/
-  Training/
-    tumor/
-    no tumor/
-  Testing/
-    tumor/
-    no tumor/
+```bash
+git clone https://github.com/Pk2911/gpu-mri-reconstruction.git
+cd gpu-mri-reconstruction
 ```
 
-Install the Python packages:
+2. Create and activate a virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Windows:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+macOS/Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+3. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-For GPU acceleration, install the PyTorch build matching your CUDA version from the [official PyTorch installer](https://pytorch.org/get-started/locally/).
+For GPU execution, install a CUDA-compatible PyTorch build from the official PyTorch installation guide:
+https://pytorch.org/get-started/locally/
 
-## Run the notebook
+## Dataset Setup
 
-1. Open `notebooks/gpu_mri_reconstruction.ipynb` in Jupyter Lab or VS Code.
-2. Update the four dataset paths in the **Data Loading & Preprocessing** cell to point to your local `Dataset` directory.
-3. Select a CUDA-enabled Python kernel and run all cells.
+Update the four dataset paths in the notebook Data Loading and Preprocessing cell to match your local dataset location.
 
-The notebook falls back to CPU if CUDA is unavailable. Its timing and GPU-memory calls are written for CUDA, so a CUDA-capable NVIDIA system is the intended environment.
+```text
+Dataset/
+|-- Training/
+|   |-- tumor/
+|   `-- no tumor/
+`-- Testing/
+    |-- tumor/
+    `-- no tumor/
+```
 
-## Notes
+The dataset is excluded from this repository through .gitignore.
 
-This is a research/academic simulation of MRI reconstruction, not a clinical or diagnostic system. Do not use it for patient-care decisions.
+## Run the Project
+
+```bash
+jupyter lab
+```
+
+Then open notebooks/gpu_mri_reconstruction.ipynb, select a CUDA-enabled kernel, and run all cells.
+
+Pipeline summary:
+
+1. Load and preprocess brain MRI images.
+2. Move image batches to GPU memory.
+3. Simulate undersampled and noisy MRI k-space data.
+4. Reconstruct with ZFR, CG, ISTA, and RLS.
+5. Compare PSNR, SSIM, execution time, memory usage, and throughput.
+
+## Reconstruction Methods
+
+| Method | Purpose |
+| :--- | :--- |
+| ZFR | Baseline reconstruction with zero-filled missing k-space data. |
+| CG | Iterative optimization for reconstruction. |
+| ISTA | Iterative thresholding to balance structure and noise reduction. |
+| RLS | Iterative regularized data-consistency update. |
+
+## Future Improvements
+
+- Make dataset paths configurable.
+- Add CPU-safe performance metrics and automatic CUDA checks.
+- Save benchmark results to CSV.
+- Add comparative PSNR, SSIM, memory, and timing plots.
+- Explore deep-learning-based MRI reconstruction models.
+
+## Documentation
+
+Supporting reports and execution notes are in the docs folder.
 
 ## License
 
 No license has been selected yet. Add one before publishing or reusing the code outside the project team.
+
+## Authors
+
+Anjali K S and Pankaj Krishna
