@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 # gpu-mri-reconstruction
-=======
+
 # GPU-Accelerated Brain MRI Reconstruction
 
 This project evaluates GPU-accelerated MRI reconstruction methods using PyTorch and CUDA. It simulates undersampled, noisy k-space data from brain MRI images, then compares four reconstruction approaches:
@@ -54,4 +53,3 @@ This is a research/academic simulation of MRI reconstruction, not a clinical or 
 ## License
 
 No license has been selected yet. Add one before publishing or reusing the code outside the project team.
->>>>>>> b818bf4 (Initial commit: GPU MRI reconstruction project)
